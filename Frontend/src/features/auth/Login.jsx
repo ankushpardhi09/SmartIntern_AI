@@ -12,19 +12,19 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl w-full pt-0 pb-0  bg-blue-100 rounded-lg shadow-lg overflow-hidden">
-        <div className="flex gap-10">
-          <div className="leftSection w-1/2 relative">
+      <div className="max-w-7xl w-full pt-0 pb-0 bg-blue-100 rounded-lg shadow-lg overflow-hidden">
+        <div className="flex flex-col md:flex-row gap-10">
+          <div className="leftSection w-full md:w-1/2 relative">
             <img
               src="https://plus.unsplash.com/premium_photo-1681487837141-7aa3cb70a040?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="login"
-              className="w-full h-full object-cover rounded-b-xl"
+              className="w-full h-64 md:h-full object-cover rounded-b-xl md:rounded-b-none md:rounded-l-xl"
             />
             <button className="absolute top-4 right-4 opacity-80 bg-white/90 hover:bg-white text-gray-800 px-4 py-2 rounded-full shadow-md transition-colors duration-200 flex items-center gap-2">
               Back to website →
             </button>
           </div>
-          <div className="rightSection w-1/2 p-8">
+          <div className="rightSection w-full md:w-1/2 p-8">
             <div className="w-full max-w-md mx-auto">
               <div className="border-b border-gray-300 pb-8 mb-8">
                 <h1 className="text-3xl font-semibold text-gray-900 mb-2">
@@ -93,7 +93,7 @@ const Login = () => {
                       htmlFor="country"
                       className="block text-sm font-medium text-gray-700 mb-2"
                     >
-                        Country
+                      Country
                     </label>
                     <select
                       id="country"
@@ -102,9 +102,9 @@ const Login = () => {
                       className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     >
                       <option>India</option>
-                        <option>United States</option>
-                        <option>Canada</option>
-                        <option>Mexico</option>
+                      <option>United States</option>
+                      <option>Canada</option>
+                      <option>Mexico</option>
                     </select>
                   </div>
 
