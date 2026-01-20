@@ -3,11 +3,12 @@ import { useState } from "react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [skills, setSkills] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle login logic here
-    console.log("Login attempt:", { email, password });
+    console.log("Login attempt:", { email, password, skills });
   };
 
   return (
@@ -154,6 +155,35 @@ const Login = () => {
                       autoComplete="postal-code"
                       className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     />
+                  </div>
+
+                  <div className="sm:col-span-6">
+                    <label
+                      htmlFor="skills"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Skills
+                    </label>
+                    <select
+                      id="skills"
+                      name="skills"
+                      multiple
+                      value={skills}
+                      onChange={(e) => setSkills(Array.from(e.target.selectedOptions, option => option.value))}
+                      className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    >
+                      <option value="JavaScript">JavaScript</option>
+                      <option value="React">React</option>
+                      <option value="Node.js">Node.js</option>
+                      <option value="Python">Python</option>
+                      <option value="Java">Java</option>
+                      <option value="C++">C++</option>
+                      <option value="HTML">HTML</option>
+                      <option value="CSS">CSS</option>
+                      <option value="Tailwind CSS">Tailwind CSS</option>
+                      <option value="SQL">SQL</option>
+                      <option value="MongoDB">MongoDB</option>
+                    </select>
                   </div>
                 </div>
 
