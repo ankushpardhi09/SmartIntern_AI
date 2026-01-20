@@ -1,14 +1,38 @@
 import { useState } from "react";
 
 const Login = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [skills, setSkills] = useState([]);
+
+  const handleGoogleSignIn = () => {
+    // TODO: Implement Google OAuth authentication
+    console.log("Google sign-in clicked - implement OAuth flow here");
+    // For now, this is a placeholder. In a real implementation, you would:
+    // 1. Initialize Google Sign-In
+    // 2. Handle the authentication flow
+    // 3. Process the user data
+  };
+
+  const handleAppleSignIn = () => {
+    // TODO: Implement Apple Sign-In authentication
+    console.log("Apple sign-in clicked - implement OAuth flow here");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login attempt:", { email, password, skills });
+    // Encrypt password using base64 encoding
+    const encryptedPassword = btoa(password);
+    
+    if (isLogin) {
+      // Handle login logic here
+      console.log("Login Data:", { email, password: encryptedPassword });
+    } else {
+      // Handle registration logic here
+      console.log("Registration Data:", { firstName, lastName, email, password: encryptedPassword });
+    }
   };
 
   return (
@@ -29,51 +53,65 @@ const Login = () => {
             <div className="w-full max-w-md mx-auto">
               <div className="border-b border-gray-300 pb-8 mb-8">
                 <h1 className="text-3xl font-semibold text-gray-900 mb-2">
-                  Create your account
+                  {isLogin ? "Sign in to your account" : "Create your account"}
                 </h1>
                 <p className="text-sm text-gray-600">
-                  Already have an account?{" "}
-                  <a href="#" className="text-indigo-600 hover:text-indigo-500">
-                    Sign in
-                  </a>
+                  {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+                  <button
+                    type="button"
+                    onClick={() => setIsLogin(!isLogin)}
+                    className="text-indigo-600 hover:text-indigo-500 font-medium"
+                  >
+                    {isLogin ? "Sign up" : "Sign in"}
+                  </button>
                 </p>
               </div>
 
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="first-name"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      First name
-                    </label>
-                    <input
-                      id="first-name"
-                      type="text"
-                      name="first-name"
-                      autoComplete="given-name"
-                      className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
+                  {!isLogin && (
+                    <>
+                      <div className="sm:col-span-3">
+                        <label
+                          htmlFor="first-name"
+                          className="block text-sm font-medium text-gray-700 mb-2"
+                        >
+                          First name
+                        </label>
+                        <input
+                          id="first-name"
+                          type="text"
+                          name="first-name"
+                          autoComplete="given-name"
+                          onChange={(e) => {
+                            setFirstName(e.target.value);
+                          }}
+                          className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                        />
+                      </div>
 
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="last-name"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Last name
-                    </label>
-                    <input
-                      id="last-name"
-                      type="text"
-                      name="last-name"
-                      autoComplete="family-name"
-                      className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
+                      <div className="sm:col-span-3">
+                        <label
+                          htmlFor="last-name"
+                          className="block text-sm font-medium text-gray-700 mb-2"
+                        >
+                          Last name
+                        </label>
+                        <input
+                          id="last-name"
+                          type="text"
+                          name="last-name"
+                          autoComplete="family-name"
+                          onChange={(e) => {
+                            setLastName(e.target.value);
+                          }}
+                          className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                        />
+                      </div>
+                    </>
+                  )}
 
-                  <div className="sm:col-span-4">
+                  <div className={isLogin ? "sm:col-span-6" : "sm:col-span-4"}>
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium text-gray-700 mb-2"
@@ -85,105 +123,30 @@ const Login = () => {
                       type="email"
                       name="email"
                       autoComplete="email"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                       className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     />
                   </div>
 
-                  <div className="sm:col-span-3">
+                  <div className={isLogin ? "sm:col-span-6" : "sm:col-span-4"}>
                     <label
-                      htmlFor="country"
+                      htmlFor="password"
                       className="block text-sm font-medium text-gray-700 mb-2"
                     >
-                      Country
-                    </label>
-                    <select
-                      id="country"
-                      name="country"
-                      autoComplete="country-name"
-                      className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    >
-                      <option>India</option>
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </select>
-                  </div>
-
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor="city"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      City
+                      Password
                     </label>
                     <input
-                      id="city"
-                      type="text"
-                      name="city"
-                      autoComplete="address-level2"
+                      id="password"
+                      type="password"
+                      name="password"
+                      autoComplete={isLogin ? "current-password" : "new-password"}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                       className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     />
-                  </div>
-
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor="region"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      State / Province
-                    </label>
-                    <input
-                      id="region"
-                      type="text"
-                      name="region"
-                      autoComplete="address-level1"
-                      className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor="postal-code"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      ZIP / Postal code
-                    </label>
-                    <input
-                      id="postal-code"
-                      type="text"
-                      name="postal-code"
-                      autoComplete="postal-code"
-                      className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
-                  </div>
-
-                  <div className="sm:col-span-6">
-                    <label
-                      htmlFor="skills"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Skills
-                    </label>
-                    <select
-                      id="skills"
-                      name="skills"
-                      multiple
-                      value={skills}
-                      onChange={(e) => setSkills(Array.from(e.target.selectedOptions, option => option.value))}
-                      className="block w-full rounded-md border border-black px-3 py-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    >
-                      <option value="JavaScript">JavaScript</option>
-                      <option value="React">React</option>
-                      <option value="Node.js">Node.js</option>
-                      <option value="Python">Python</option>
-                      <option value="Java">Java</option>
-                      <option value="C++">C++</option>
-                      <option value="HTML">HTML</option>
-                      <option value="CSS">CSS</option>
-                      <option value="Tailwind CSS">Tailwind CSS</option>
-                      <option value="SQL">SQL</option>
-                      <option value="MongoDB">MongoDB</option>
-                    </select>
                   </div>
                 </div>
 
@@ -192,7 +155,7 @@ const Login = () => {
                     type="submit"
                     className="w-full rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
-                    Create Account
+                    {isLogin ? "Sign in" : "Create Account"}
                   </button>
                 </div>
 
@@ -211,6 +174,7 @@ const Login = () => {
                   <div className="mt-6 grid grid-cols-2 gap-3">
                     <button
                       type="button"
+                      onClick={handleGoogleSignIn}
                       className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -236,6 +200,7 @@ const Login = () => {
 
                     <button
                       type="button"
+                      onClick={handleAppleSignIn}
                       className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       <svg className="w-5 h-5" viewBox="0 0 24 24">
